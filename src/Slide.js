@@ -37,6 +37,7 @@ class Slide extends React.Component {
   render () {
     const {
       index,
+      active,
       ...props
     } = this.props
     return (
