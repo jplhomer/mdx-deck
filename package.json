@@ -40,6 +40,7 @@
     "react": "^16.4.1",
     "react-dev-utils": "^5.0.1",
     "react-focus-lock": "^1.11.2",
+    "react-focus-marshal": "^1.0.1",
     "react-focus-trap": "^2.6.0",
     "react-syntax-highlighter": "^8.0.1",
     "remark-emoji": "^2.0.1",

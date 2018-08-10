@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { space, color } from 'styled-system'
-import createFocusTrap from 'focus-trap'
 import { modes } from './index'
+import { FocusTrap } from 'react-focus-marshal'
 
 const Context = React.createContext(null)
 
@@ -36,31 +36,6 @@ const Root = styled.div([], {
 }, space, color)
 
 class Slide extends React.Component {
-  root = React.createRef()
-  trap = null
-
-  componentDidMount () {
-    console.log(this.root, this.root.current)
-    this.trap = createFocusTrap(this.root.current)
-  }
-
-  componentDidUpdate (prev) {
-    const { active, mode } = this.props
-    console.log(active, mode)
-    if (prev.active === active && prev.mode === mode) return
-    // requires querystring fix
-    // if (active && mode === modes.normal) {
-    if (active) {
-      console.log('activate')
-      try {
-        this.trap.activate()
-      } catch (e) {}
-    } else {
-      console.log('deactivate')
-      this.trap.deactivate()
-    }
-  }
-
   render () {
     const {
       index,
@@ -70,10 +45,7 @@ class Slide extends React.Component {
     } = this.props
     return (
       <Context.Provider value={{ index }}>
-        <Root
-          {...props}
-          innerRef={this.root}
-        />
+        <Root {...props} />
       </Context.Provider>
     )
   }

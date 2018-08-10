@@ -4,6 +4,7 @@ import { MDXProvider } from '@mdx-js/tag'
 import { ThemeProvider } from 'styled-components'
 import debounce from 'lodash.debounce'
 import querystring from 'querystring'
+import { FocusMarshal } from 'react-focus-marshal'
 
 import { Provider as ContextProvider } from './context'
 import DefaultProvider from './Provider'
@@ -245,37 +246,39 @@ export class SlideDeck extends React.Component {
               ...defaultComponents,
               ...components
             }}>
-            <Provider {...this.state} update={this.update}>
-              {mode === modes.grid ? (
-                <Grid
-                  slides={slides}
-                  update={this.update}
-                />
-              ) : (
-                <Wrapper
-                  {...this.state}
-                  slides={slides}
-                  width={width}
-                  height={height}
-                  update={this.update}>
-                  <GoogleFonts />
-                  <Carousel index={index}>
-                    {slides.map((Component, i) => (
-                      <Slide
-                        key={i}
-                        id={'slide-' + i}
-                        index={i}
-                        active={i === index}
-                        mode={mode}
-                        className='Slide'
-                      >
-                        <Component />
-                      </Slide>
-                    ))}
-                  </Carousel>
-                </Wrapper>
-              )}
-            </Provider>
+            <FocusMarshal>
+              <Provider {...this.state} update={this.update}>
+                {mode === modes.grid ? (
+                  <Grid
+                    slides={slides}
+                    update={this.update}
+                  />
+                ) : (
+                  <Wrapper
+                    {...this.state}
+                    slides={slides}
+                    width={width}
+                    height={height}
+                    update={this.update}>
+                    <GoogleFonts />
+                    <Carousel index={index}>
+                      {slides.map((Component, i) => (
+                        <Slide
+                          key={i}
+                          id={'slide-' + i}
+                          index={i}
+                          active={i === index}
+                          mode={mode}
+                          className='Slide'
+                        >
+                          <Component />
+                        </Slide>
+                      ))}
+                    </Carousel>
+                  </Wrapper>
+                )}
+              </Provider>
+            </FocusMarshal>
           </MDXProvider>
         </ThemeProvider>
       </ContextProvider>
